@@ -1,0 +1,545 @@
+{
+  "version": "1.1.0",
+  "last_updated": "2026-03-14",
+  "maintainer": "radera.online",
+  "github_repo": "https://github.com/radera-online/radera.online",
+  "contribute_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md",
+
+  "disclaimer": {
+    "short": "Radera.online är ett informationsverktyg — inte juridisk rådgivning. Vi ansvarar inte för utfallet av förfrågningar skickade via våra mallar.",
+    "full": "Radera.online är ett kostnadsfritt informationsverktyg som hjälper dig att utöva dina rättigheter enligt GDPR.\n\nInnehållet på denna webbplats utgör inte juridisk rådgivning och ska inte tolkas som sådan. Vi är inte jurister och har inget ansvar för utfallet av raderingsförfrågningar som skickas med hjälp av våra mallar.\n\nInformationen på webbplatsen är generell och kan inte ta hänsyn till din specifika situation. Kontakta en jurist om du behöver personlig juridisk rådgivning.\n\nVi strävar efter att hålla informationen aktuell men kan inte garantera att uppgifter om enskilda företag, kontaktuppgifter eller rättsläget alltid är uppdaterade. Varje företagskort visar datum för senaste verifiering.\n\nHar du frågor eller hittar du felaktig information? Föreslå en ändring via GitHub.",
+    "appears_in": ["footer", "onboarding_screen"]
+  },
+
+  "statuses": {
+    "active": "Verifierad och fungerar",
+    "under_investigation": "Under utredning av IMY — raderingsförfrågningar behandlas troligen inte",
+    "non_compliant": "Känd för att inte följa raderingsförfrågningar",
+    "unverified": "Ej verifierad — information kan vara inaktuell"
+  },
+
+  "template_variants": {
+    "aggregator_standard": "Standardmall för aggregatortjänster utan utgivningsbevis",
+    "aggregator_utgivningsbevis": "Mall med paragraf som bemöter utgivningsbevis-argumentet",
+    "aggregator_legal_docs": "Mall för tjänster som publicerar rättsliga dokument — inkluderar skäl 65",
+    "aggregator_bankid": "BankID-flöde — ingen e-postmall, steg-för-steg-guide istället"
+  },
+
+  "email_templates": {
+    "aggregator_standard": {
+      "subject": "Begäran om radering av personuppgifter – Artikel 17 GDPR",
+      "body": "Hej!\n\nJag vill härmed utöva min rätt till radering enligt artikel 17 i dataskyddsförordningen (GDPR).\n\nJag begär att alla personuppgifter som är kopplade till mig tas bort från er databas och webbplats. Detta innebär att ingen person ska kunna se information om mig, inklusive rättsliga dokument och andra uppgifter kopplade till mitt namn och personnummer, på er tjänst.\n\nNi kan hitta information om era skyldigheter på Integritetsskyddsmyndighetens webbplats (www.imy.se). Kammarrättens senaste avgörande fastställer att databaser som publicerar uppgifter för kommersiella syften inte anses ha ett journalistiskt ändamål och därför är skyldiga att följa GDPR.\n\nJag ser fram emot ert svar på min begäran om radering snarast möjligt. Ni får gärna kontakta mig om ni har några frågor.\n\nMed vänliga hälsningar,\n[FÖRNAMN EFTERNAMN]\n[PERSONNUMMER]"
+    },
+    "aggregator_utgivningsbevis": {
+      "subject": "Begäran om radering av personuppgifter – Artikel 17 GDPR",
+      "body": "Hej!\n\nJag vill härmed utöva min rätt till radering enligt artikel 17 i dataskyddsförordningen (GDPR).\n\nJag begär att alla personuppgifter som är kopplade till mig tas bort från er databas och webbplats. Detta innebär att ingen person ska kunna se information om mig, inklusive rättsliga dokument och andra uppgifter kopplade till mitt namn och personnummer, på er tjänst.\n\nNi kan hitta information om era skyldigheter på Integritetsskyddsmyndighetens webbplats (www.imy.se). Kammarrättens senaste avgörande fastställer att databaser som publicerar uppgifter för kommersiella syften inte anses ha ett journalistiskt ändamål och därför är skyldiga att följa GDPR.\n\nJag noterar att ni tidigare hänvisat till utgivningsbevis som grund för publicering. IMY har dock klargjort att ett utgivningsbevis inte ger en obegränsad rätt att behandla personuppgifter när ett proportionerligt allmänintresse saknas.\n\nJag ser fram emot ert svar på min begäran om radering snarast möjligt. Ni får gärna kontakta mig om ni har några frågor.\n\nMed vänliga hälsningar,\n[FÖRNAMN EFTERNAMN]\n[PERSONNUMMER]"
+    },
+    "aggregator_legal_docs": {
+      "subject": "Begäran om radering av personuppgifter – Artikel 17 GDPR",
+      "body": "Hej!\n\nJag vill härmed utöva min rätt till radering enligt artikel 17 i dataskyddsförordningen (GDPR).\n\nJag begär att alla personuppgifter som är kopplade till mig tas bort från er databas och webbplats. Detta innebär att ingen person ska kunna se information om mig, inklusive rättsliga dokument och andra uppgifter kopplade till mitt namn och personnummer, på er tjänst.\n\nFortsatt publicering av rättsliga uppgifter utgör en oproportionerlig kränkning av min personliga integritet. Enligt skäl 65 i GDPR ska rätten till radering väga tungt när fortsatt behandling orsakar sådan skada, oavsett om uppgifterna ursprungligen hämtats från offentliga källor.\n\nNi kan hitta information om era skyldigheter på Integritetsskyddsmyndighetens webbplats (www.imy.se). Kammarrättens senaste avgörande fastställer att databaser som publicerar uppgifter för kommersiella syften inte anses ha ett journalistiskt ändamål och därför är skyldiga att följa GDPR.\n\nJag ser fram emot ert svar på min begäran om radering snarast möjligt. Ni får gärna kontakta mig om ni har några frågor.\n\nMed vänliga hälsningar,\n[FÖRNAMN EFTERNAMN]\n[PERSONNUMMER]"
+    }
+  },
+
+  "followup_template": {
+    "subject": "PÅMINNELSE – Obesvarad begäran om radering (Artikel 17 GDPR)",
+    "body": "Hej!\n\nDen [DATUM] skickade jag en begäran om radering av mina personuppgifter med stöd av artikel 17 GDPR. Enligt artikel 12.3 är ni skyldiga att besvara en sådan begäran inom en månad.\n\nJag har ännu inte mottagit något svar. Vänligen bekräfta att raderingen har genomförts, eller meddela skriftligen varför ni anser att ni inte är skyldiga att radera uppgifterna (artikel 12.4).\n\nOm jag inte erhåller svar inom 7 dagar kommer jag att inge klagomål till Integritetsskyddsmyndigheten (IMY) via deras e-tjänst på e-tjanster.imy.se/sv/klagomal.\n\nMed vänliga hälsningar,\n[FÖRNAMN EFTERNAMN]\n[PERSONNUMMER]"
+  },
+
+  "imy_complaint_guide": {
+    "url": "https://e-tjanster.imy.se/sv/klagomal",
+    "note": "IMY hanterar klagomål via e-tjänst — inte via e-post. Knappen öppnar IMY:s e-tjänst direkt.",
+    "prepare": [
+      "Din ursprungliga raderingsförfrågan med datum",
+      "Bevis på att du skickat den (t.ex. skärmbild eller vidarebefordrat mejl)",
+      "Företagets namn och organisationsnummer",
+      "Kort beskrivning av vad som hänt och varför du anser att de brutit mot GDPR"
+    ]
+  },
+
+  "protective_measures": [
+    {
+      "id": "folkbokforing",
+      "name": "Spärra folkbokföring",
+      "provider": "Skatteverket",
+      "url": "https://skatteverket.se/privat/folkbokforing/flyttanmalan/sparraobehorigadressandring.4.361dc8c15312eff6fd2ca7c.html",
+      "method": "bankid",
+      "cost": "Gratis",
+      "description": "Förhindrar att obehöriga ändrar din folkbokföringsadress. Utan spärr kan vem som helst försöka flytta dig på papper. Aggregatortjänster hämtar adresser direkt från SPAR som speglar folkbokföringen.",
+      "steps": [
+        "Gå till länken nedan",
+        "Logga in med BankID",
+        "Ansök om spärr mot obehörig adressändring",
+        "Spärren aktiveras omgående"
+      ],
+      "important_note": "Påverkar inte din egen möjlighet att anmäla en faktisk flytt. Kontakta Skatteverket direkt för att häva spärren vid behov.",
+      "last_verified": "2026-03-14",
+      "status": "active"
+    },
+    {
+      "id": "adresslaset",
+      "name": "Adresslåset",
+      "provider": "Adressändring.se",
+      "url": "https://www.adressandring.se/vara-tjanster/adresslaset",
+      "method": "bankid",
+      "cost": "Avgiftsbelagd — några kronor per månad",
+      "description": "Förhindrar att obehöriga omdirigerar din post. Blockerar vidarebefordran utan ditt godkännande — stoppar både postkapning och kartläggning av din faktiska adress.",
+      "steps": [
+        "Gå till adressandring.se",
+        "Välj 'Adresslåset' i menyn",
+        "Logga in med BankID",
+        "Aktivera låset — gäller omgående"
+      ],
+      "important_note": "Privat tjänst driven av Adressändring.se, inte Skatteverket. Kompletterar folkbokföringsspärren — de skyddar mot olika typer av missbruk.",
+      "last_verified": "2026-03-14",
+      "status": "active"
+    }
+  ],
+
+  "companies": [
+    {
+      "id": "ratsit",
+      "name": "Ratsit",
+      "url": "https://www.ratsit.se",
+      "category": "aggregator",
+      "section": "standard",
+      "description": "Publicerar personuppgifter, adresser, inkomstuppgifter och familjerelationer.",
+      "removal_method": "bankid",
+      "removal_url": "https://www.ratsit.se",
+      "removal_instructions": [
+        "Gå till ratsit.se",
+        "Klicka på 'Logga in' uppe till höger",
+        "Logga in med BankID",
+        "Gå till 'Mina uppgifter'",
+        "Välj 'Radera mina uppgifter'",
+        "Bekräfta raderingen"
+      ],
+      "contact_email": null,
+      "contact_form": null,
+      "dpo_email": "gdpr@ratsit.se",
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "adress", "personnummer", "inkomst", "familjerelationer"],
+      "bankid_required": true,
+      "utgivningsbevis": false,
+      "repopulates": true,
+      "repopulates_note": "Kan återpopuleras från SPAR. Kontrollera efter 4–6 veckor.",
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_bankid",
+      "status": "active",
+      "status_note": null,
+      "imy_case_url": null,
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Ratsit",
+      "compliance_notes": "Följer i regel raderingsförfrågningar via BankID snabbt."
+    },
+    {
+      "id": "hitta",
+      "name": "Hitta.se",
+      "url": "https://www.hitta.se",
+      "category": "aggregator",
+      "section": "standard",
+      "description": "Publicerar namn, adress och telefonnummer för privatpersoner i Sverige.",
+      "removal_method": "bankid",
+      "removal_url": "https://www.hitta.se/kontakta-oss/ta-bort-kontaktsida",
+      "removal_instructions": [
+        "Gå till länken nedan",
+        "Logga in med BankID",
+        "Följ instruktionerna för att ta bort din kontaktsida",
+        "Bekräfta borttagningen"
+      ],
+      "contact_email": null,
+      "contact_form": null,
+      "dpo_email": null,
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "adress", "telefonnummer"],
+      "bankid_required": true,
+      "utgivningsbevis": false,
+      "repopulates": true,
+      "repopulates_note": "Hämtar data från SPAR. Kan återkomma efter adressändring.",
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_bankid",
+      "status": "active",
+      "status_note": null,
+      "imy_case_url": null,
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Hitta.se",
+      "compliance_notes": null
+    },
+    {
+      "id": "eniro",
+      "name": "Eniro",
+      "url": "https://www.eniro.se",
+      "category": "aggregator",
+      "section": "standard",
+      "description": "Publicerar kontaktuppgifter för privatpersoner och företag.",
+      "removal_method": "bankid",
+      "removal_url": "https://www.eniro.se",
+      "removal_instructions": [
+        "Gå till eniro.se",
+        "Klicka på 'Logga in'",
+        "Logga in med BankID",
+        "Gå till 'Mina sidor'",
+        "Välj 'Radera mina uppgifter'",
+        "Bekräfta raderingen"
+      ],
+      "contact_email": "kundservice@eniro.com",
+      "contact_form": null,
+      "dpo_email": "kundservice@eniro.com",
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "adress", "telefonnummer"],
+      "bankid_required": true,
+      "utgivningsbevis": true,
+      "utgivningsbevis_note": "Eniro hänvisar ibland till utgivningsbevis. Kammarrätten och IMY har klargjort att kommersiell publicering inte omfattas av det journalistiska undantaget.",
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_utgivningsbevis",
+      "status": "active",
+      "status_note": null,
+      "imy_case_url": null,
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Eniro",
+      "compliance_notes": null
+    },
+    {
+      "id": "mrkoll",
+      "name": "MrKoll",
+      "url": "https://www.mrkoll.se",
+      "category": "aggregator",
+      "section": "legal",
+      "description": "Publicerar personuppgifter inklusive inkomst, skulder och familjerelationer.",
+      "removal_method": "form",
+      "removal_url": "https://mrkoll.se/om/kundservice-kundkontakt/",
+      "removal_instructions": [],
+      "contact_email": null,
+      "contact_form": "https://mrkoll.se/om/kundservice-kundkontakt/",
+      "dpo_email": "info@mrkoll.se",
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "adress", "personnummer", "inkomst", "skulder", "familjerelationer"],
+      "bankid_required": false,
+      "utgivningsbevis": false,
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_standard",
+      "status": "under_investigation",
+      "status_note": "Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.",
+      "imy_case_url": "https://www.imy.se",
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: MrKoll",
+      "compliance_notes": "Under IMY-tillsyn. Hävdar att GDPR inte är tillämplig."
+    },
+    {
+      "id": "upplysning",
+      "name": "Upplysning.se",
+      "url": "https://www.upplysning.se",
+      "category": "aggregator",
+      "section": "legal",
+      "description": "Publicerar kreditupplysningar och personuppgifter.",
+      "removal_method": "form",
+      "removal_url": "https://www.upplysning.se/kontakta-oss",
+      "removal_instructions": [],
+      "contact_email": null,
+      "contact_form": "https://www.upplysning.se/kontakta-oss",
+      "dpo_email": null,
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "adress", "personnummer", "kredituppgifter"],
+      "bankid_required": false,
+      "utgivningsbevis": false,
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_standard",
+      "status": "under_investigation",
+      "status_note": "Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.",
+      "imy_case_url": "https://www.imy.se",
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Upplysning.se",
+      "compliance_notes": "Under IMY-tillsyn. Hävdar att GDPR inte är tillämplig."
+    },
+    {
+      "id": "birthday",
+      "name": "Birthday.se",
+      "url": "https://www.birthday.se",
+      "category": "aggregator",
+      "section": "standard",
+      "description": "Publicerar namn och födelsedag för privatpersoner i Sverige.",
+      "removal_method": "email",
+      "removal_url": null,
+      "removal_instructions": [
+        "Kopiera e-postmallen nedan",
+        "Öppna din e-postklient",
+        "Adressera till info@birthday.se",
+        "Klistra in mallen och fyll i dina uppgifter",
+        "Skicka mejlet"
+      ],
+      "contact_email": "info@birthday.se",
+      "contact_form": null,
+      "dpo_email": "info@birthday.se",
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "födelsedag", "adress"],
+      "bankid_required": false,
+      "utgivningsbevis": false,
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1a", "17.1c", "21.1"],
+      "template_variant": "aggregator_standard",
+      "status": "active",
+      "status_note": null,
+      "imy_case_url": null,
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Birthday.se",
+      "compliance_notes": "Skäl 47 relevant — publicering av födelsedag uppfyller inte rimligt förväntanstest."
+    },
+    {
+      "id": "merinfo",
+      "name": "Merinfo.se",
+      "url": "https://www.merinfo.se",
+      "category": "aggregator",
+      "section": "standard",
+      "description": "Publicerar personuppgifter, adresser och företagskopplingar.",
+      "removal_method": "email",
+      "removal_url": null,
+      "removal_instructions": [
+        "Kopiera e-postmallen nedan",
+        "Öppna din e-postklient",
+        "Adressera till info@merinfo.se",
+        "Klistra in mallen och fyll i dina uppgifter",
+        "Skicka mejlet"
+      ],
+      "contact_email": "info@merinfo.se",
+      "contact_form": null,
+      "dpo_email": "info@merinfo.se",
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "adress", "personnummer", "företagskopplingar"],
+      "bankid_required": false,
+      "utgivningsbevis": false,
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_standard",
+      "status": "active",
+      "status_note": null,
+      "imy_case_url": null,
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Merinfo.se",
+      "compliance_notes": null
+    },
+    {
+      "id": "biluppgifter",
+      "name": "Biluppgifter.se",
+      "url": "https://www.biluppgifter.se",
+      "category": "vehicle_data",
+      "section": "standard",
+      "description": "Publicerar fordonsuppgifter kopplade till personnummer och namn.",
+      "removal_method": "email",
+      "removal_url": null,
+      "removal_instructions": [
+        "Kopiera e-postmallen nedan",
+        "Öppna din e-postklient",
+        "Adressera till info@biluppgifter.se",
+        "Klistra in mallen och fyll i dina uppgifter",
+        "Skicka mejlet"
+      ],
+      "contact_email": "info@biluppgifter.se",
+      "contact_form": null,
+      "dpo_email": "info@biluppgifter.se",
+      "legal_basis_used": "legitimate_interest",
+      "data_categories": ["namn", "personnummer", "fordonsuppgifter", "registreringsnummer"],
+      "bankid_required": false,
+      "utgivningsbevis": false,
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_standard",
+      "status": "active",
+      "status_note": null,
+      "imy_case_url": null,
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Biluppgifter.se",
+      "compliance_notes": null
+    },
+    {
+      "id": "krimfup",
+      "name": "Krimfup.se",
+      "url": "https://www.krimfup.se",
+      "category": "legal_records",
+      "section": "legal",
+      "description": "Publicerar uppgifter om personer som förekommer i brottmål, domar och rättsliga processer.",
+      "removal_method": "email",
+      "removal_url": null,
+      "removal_instructions": [],
+      "contact_email": "support@krimfup.se",
+      "contact_form": null,
+      "dpo_email": "support@krimfup.se",
+      "legal_basis_used": "public_interest",
+      "data_categories": ["namn", "personnummer", "domar", "brottmål", "rättsliga uppgifter"],
+      "bankid_required": false,
+      "utgivningsbevis": false,
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_legal_docs",
+      "status": "under_investigation",
+      "status_note": "Krimfup.se är för närvarande under utredning av IMY. Det är oklart om raderingsförfrågningar behandlas under pågående utredning. Följ IMY:s webbplats för uppdateringar innan du skickar en förfrågan.",
+      "imy_case_url": "https://www.imy.se",
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Krimfup.se",
+      "compliance_notes": "Under IMY-utredning. Skicka inte förfrågan förrän utredningen är avslutad."
+    },
+    {
+      "id": "lexbase",
+      "name": "Lexbase.se",
+      "url": "https://www.lexbase.se",
+      "category": "legal_records",
+      "section": "legal",
+      "description": "Publicerar domar, rättsliga beslut och uppgifter om personer som förekommer i rättsliga processer — inklusive som part, vittne eller målsägande.",
+      "removal_method": "form",
+      "removal_url": "https://www.lexbase.se/sida/kontakt",
+      "removal_instructions": [],
+      "contact_email": null,
+      "contact_form": "https://www.lexbase.se/sida/kontakt",
+      "dpo_email": null,
+      "legal_basis_used": "public_interest",
+      "data_categories": ["namn", "personnummer", "domar", "rättsliga beslut", "civilmål", "brottmål"],
+      "bankid_required": false,
+      "utgivningsbevis": true,
+      "utgivningsbevis_note": "Lexbase har historiskt åberopat utgivningsbevis som grund för publicering. Kammarrätten har klargjort att kommersiell publicering inte skyddas av det journalistiska undantaget.",
+      "repopulates": false,
+      "repopulates_note": null,
+      "gdpr_articles": ["17.1c", "21.1"],
+      "template_variant": "aggregator_legal_docs",
+      "status": "under_investigation",
+      "status_note": "Lexbase.se är för närvarande under utredning av IMY. Det är oklart om raderingsförfrågningar behandlas under pågående utredning. Följ IMY:s webbplats för uppdateringar innan du skickar en förfrågan.",
+      "imy_case_url": "https://www.imy.se",
+      "last_verified": "2026-03-14",
+      "verified_by": "radera.online",
+      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Lexbase.se",
+      "compliance_notes": "Under IMY-utredning. Känd för att åberopa utgivningsbevis — mall inkluderar motargument."
+    }
+  ],
+
+  "search_engines": [
+    {
+      "id": "google_search",
+      "name": "Google — avindexering",
+      "description": "Begär att specifika URL:er tas bort ur Googles sökresultat med stöd av GDPR.",
+      "removal_url": "https://reportcontent.google.com/forms/rtbf",
+      "important_note": "Skicka EFTER att källan bekräftat radering. Google kan neka om sidan fortfarande är aktiv.",
+      "last_verified": "2026-03-14",
+      "status": "active"
+    },
+    {
+      "id": "google_cache",
+      "name": "Google — föråldrat innehåll",
+      "description": "Ta bort sidor som redan raderats vid källan men fortfarande syns i Googles cache.",
+      "removal_url": "https://search.google.com/search-console/remove-outdated-content",
+      "important_note": "Endast för sidor som redan är borttagna vid källan. Behandlas snabbt.",
+      "last_verified": "2026-03-14",
+      "status": "active"
+    },
+    {
+      "id": "google_images",
+      "name": "Google Bilder",
+      "description": "Separat process för att ta bort bilder från Googles bildsök.",
+      "removal_url": "https://reportcontent.google.com/forms/rtbf",
+      "important_note": "Separat formulär från webbsök. Kräver direktlänk till bilden.",
+      "last_verified": "2026-03-14",
+      "status": "active"
+    },
+    {
+      "id": "bing",
+      "name": "Bing",
+      "description": "Bings GDPR-formulär för innehållsborttagning. Täcker även DuckDuckGo som använder Bings index.",
+      "removal_url": "https://www.bing.com/webmaster/tools/contentremoval",
+      "important_note": "Borttagning från Bing räcker för att täcka DuckDuckGo.",
+      "last_verified": "2026-03-14",
+      "status": "active"
+    }
+  ],
+
+  "proactive_tools": {
+    "search_engines": [
+      {
+        "name": "DuckDuckGo",
+        "url": "https://duckduckgo.com",
+        "description": "Ingen spårning, ingen sökhistorik, ingen personalisering.",
+        "recommended": true
+      },
+      {
+        "name": "Startpage",
+        "url": "https://www.startpage.com",
+        "description": "Googles sökresultat utan spårning.",
+        "recommended": false
+      },
+      {
+        "name": "Brave Search",
+        "url": "https://search.brave.com",
+        "description": "Oberoende sökindex, ingen spårning.",
+        "recommended": false
+      }
+    ],
+    "extensions": [
+      {
+        "name": "uBlock Origin",
+        "url": "https://ublockorigin.com",
+        "description": "Blockerar spårare, annonser och skadliga skript.",
+        "recommended": true
+      },
+      {
+        "name": "Privacy Badger",
+        "url": "https://privacybadger.org",
+        "description": "Lär sig automatiskt att blockera osynliga spårare.",
+        "recommended": false
+      },
+      {
+        "name": "Cookie AutoDelete",
+        "url": "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete",
+        "description": "Rensar cookies automatiskt när du stänger en flik.",
+        "recommended": false
+      },
+      {
+        "name": "LocalCDN",
+        "url": "https://www.localcdn.org",
+        "description": "Förhindrar spårning via externa CDN-tjänster.",
+        "recommended": false
+      }
+    ],
+    "browsers": [
+      {
+        "name": "Firefox",
+        "url": "https://www.mozilla.org/firefox",
+        "description": "Bästa integritetsinställningar av de vanliga webbläsarna.",
+        "recommended": true
+      },
+      {
+        "name": "Brave",
+        "url": "https://brave.com",
+        "description": "Starkast inbyggt integritetsskydd direkt ur lådan.",
+        "recommended": false
+      }
+    ],
+    "dns": [
+      {
+        "name": "NextDNS",
+        "url": "https://nextdns.io",
+        "description": "Konfigurerbar DNS-blockering med gratisnivå.",
+        "recommended": true
+      },
+      {
+        "name": "1.1.1.1",
+        "url": "https://1.1.1.1",
+        "description": "Enkel och snabb DNS från Cloudflare.",
+        "recommended": false
+      }
+    ]
+  }
+}
