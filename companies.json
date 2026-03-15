@@ -2,8 +2,8 @@
   "version": "1.1.0",
   "last_updated": "2026-03-14",
   "maintainer": "radera.online",
-  "github_repo": "https://github.com/radera-online/radera.online",
-  "contribute_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md",
+  "github_repo": "https://github.com/radera-online/site",
+  "contribute_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md",
 
   "disclaimer": {
     "short": "Radera.online är ett informationsverktyg — inte juridisk rådgivning. Vi ansvarar inte för utfallet av förfrågningar skickade via våra mallar.",
@@ -129,7 +129,7 @@
       "imy_case_url": null,
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Ratsit",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Ratsit",
       "compliance_notes": "Följer i regel raderingsförfrågningar via BankID snabbt."
     },
     {
@@ -163,7 +163,7 @@
       "imy_case_url": null,
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Hitta.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Hitta.se",
       "compliance_notes": null
     },
     {
@@ -200,7 +200,7 @@
       "imy_case_url": null,
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Eniro",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Eniro",
       "compliance_notes": null
     },
     {
@@ -229,7 +229,7 @@
       "imy_case_url": "https://www.imy.se",
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: MrKoll",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: MrKoll",
       "compliance_notes": "Under IMY-tillsyn. Hävdar att GDPR inte är tillämplig."
     },
     {
@@ -258,7 +258,7 @@
       "imy_case_url": "https://www.imy.se",
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Upplysning.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Upplysning.se",
       "compliance_notes": "Under IMY-tillsyn. Hävdar att GDPR inte är tillämplig."
     },
     {
@@ -293,7 +293,7 @@
       "imy_case_url": null,
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Birthday.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Birthday.se",
       "compliance_notes": "Skäl 47 relevant — publicering av födelsedag uppfyller inte rimligt förväntanstest."
     },
     {
@@ -328,7 +328,7 @@
       "imy_case_url": null,
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Merinfo.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Merinfo.se",
       "compliance_notes": null
     },
     {
@@ -363,7 +363,7 @@
       "imy_case_url": null,
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Biluppgifter.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Biluppgifter.se",
       "compliance_notes": null
     },
     {
@@ -392,7 +392,7 @@
       "imy_case_url": "https://www.imy.se",
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Krimfup.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Krimfup.se",
       "compliance_notes": "Under IMY-utredning. Skicka inte förfrågan förrän utredningen är avslutad."
     },
     {
@@ -422,7 +422,7 @@
       "imy_case_url": "https://www.imy.se",
       "last_verified": "2026-03-14",
       "verified_by": "radera.online",
-      "github_issue_url": "https://github.com/radera-online/radera.online/issues/new?template=company_correction.md&title=Correction: Lexbase.se",
+      "github_issue_url": "https://github.com/radera-online/site/issues/new?template=company_correction.md&title=Correction: Lexbase.se",
       "compliance_notes": "Under IMY-utredning. Känd för att åberopa utgivningsbevis — mall inkluderar motargument."
     }
   ],
