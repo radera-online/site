@@ -181,7 +181,7 @@
           <li><button class="step-item" onclick="goTo(5)" id="nav-5"><div class="step-num"><span>5</span></div><div class="step-label">Förbli privat</div></button></li>
         </ul>
         <hr class="sidebar-divider" />
-        <div class="sidebar-meta">Alla uppgifter sparas bara i din webbläsare.<br/>Ingenting skickas till oss.</div>
+        <div class="sidebar-meta">Alla uppgifter stannar i din webbläsare.</div>
       </div>
     </aside>
 
@@ -190,23 +190,12 @@
       <!-- Screen 1 -->
       <section class="screen active" id="screen-1">
         <div class="screen-header">
-          <h1>Skydda källan först</h1>
-          <p>Skydda din identitet vid källan innan du raderar dig från enskilda tjänster.</p>
+          <h1>Du har rätt att bli bortglömd.</h1>
+          <p style="margin-bottom:12px;">GDPR ger dig rätt att kräva radering av dina personuppgifter från svenska tjänster. De gör det medvetet krångligt. Radera.online guidar dig genom processen — gratis, anonymt och utan att samla in dina uppgifter.</p>
+          <p style="font-family:'Sora',sans-serif;font-size:0.78rem;color:var(--text-3);background:var(--bg-muted);border-radius:var(--radius-sm);padding:8px 12px;display:inline-block;">Helt gratis &nbsp;·&nbsp; Ingen registrering &nbsp;·&nbsp; Ingen insamling av uppgifter &nbsp;·&nbsp; Du gör jobbet själv</p>
         </div>
-        <div class="card">
-          <div class="card-title">Dina uppgifter</div>
-          <div class="input-grid">
-            <div class="input-group"><label for="f-name">Fullständigt namn</label><input type="text" id="f-name" placeholder="Erik Andersson" oninput="saveUserData()" /></div>
-            <div class="input-group"><label for="f-pnr">Personnummer</label><input type="text" id="f-pnr" placeholder="YYYYMMDD-XXXX" oninput="saveUserData()" /></div>
-            <div class="input-group"><label for="f-email">E-postadress</label><input type="email" id="f-email" placeholder="erik@gmail.com" oninput="saveUserData()" /></div>
-            <div class="input-group"><label for="f-address">Adress</label><input type="text" id="f-address" placeholder="Storgatan 12, Stockholm" oninput="saveUserData()" /></div>
-          </div>
-          <div class="field-note">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#908D88"/><path d="M6 5v4M6 3.5v.5" stroke="#908D88" stroke-linecap="round"/></svg>
-            Uppgifterna sparas bara i din webbläsare och skickas aldrig vidare.
-          </div>
-        </div>
-        <div class="section-label">Skyddsåtgärder</div>
+        <div class="section-label">Skydda källan först</div>
+        <p style="font-size:0.85rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Skydda din identitet vid källan innan du raderar dig från enskilda tjänster.</p>
         <div class="company-card status-active">
           <div class="company-header">
             <div><div class="company-name">Spärra folkbokföring</div><div class="company-meta">Skatteverket — Gratis</div></div>
@@ -248,7 +237,20 @@
       <section class="screen" id="screen-2">
         <div class="screen-header">
           <h1>Radera dig från aggregatorer</h1>
-          <p>Skicka raderingsförfrågningar till alla tjänster som publicerar dina uppgifter. Mallarna fylls i automatiskt med dina uppgifter.</p>
+          <p>Fyll i dina uppgifter — mallarna fylls i automatiskt. Alla uppgifter stannar i din webbläsare.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Dina uppgifter</div>
+          <div class="input-grid">
+            <div class="input-group"><label for="f-name">Fullständigt namn</label><input type="text" id="f-name" placeholder="Erik Andersson" oninput="saveUserData()" /></div>
+            <div class="input-group"><label for="f-pnr">Personnummer</label><input type="text" id="f-pnr" placeholder="YYYYMMDD-XXXX" oninput="saveUserData()" /></div>
+            <div class="input-group"><label for="f-email">E-postadress</label><input type="email" id="f-email" placeholder="erik@gmail.com" oninput="saveUserData()" /></div>
+            <div class="input-group"><label for="f-address">Adress</label><input type="text" id="f-address" placeholder="Storgatan 12, Stockholm" oninput="saveUserData()" /></div>
+          </div>
+          <div class="field-note">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#908D88"/><path d="M6 5v4M6 3.5v.5" stroke="#908D88" stroke-linecap="round"/></svg>
+            Alla uppgifter stannar i din webbläsare.
+          </div>
         </div>
         <div class="section-label">Via BankID-inloggning</div>
         <div id="bankid-companies"></div>
@@ -270,15 +272,23 @@
         </div>
         <div class="warning-box">
           <strong>Viktigt — rätt ordning</strong>
-          <p>Skicka avindexeringsbegäran till Google först efter att respektive företag bekräftat att dina uppgifter raderats. Om sidan fortfarande är aktiv kan begäran nekas.</p>
+          <p>Skicka begäran till Google först efter att respektive företag bekräftat att dina uppgifter raderats. Om sidan fortfarande är aktiv kan begäran nekas.</p>
         </div>
         <div class="section-label">Google</div>
         <div class="company-card status-active">
-          <div class="company-header"><div><div class="company-name">Google — avindexering</div></div><span class="badge badge-amber">GDPR-formulär</span></div>
-          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Begär att specifika URL:er tas bort ur Googles sökresultat. Kräver direktlänk till sidan om dig.</p>
+          <div class="company-header"><div><div class="company-name">Google — avindexering (GDPR)</div></div><span class="badge badge-amber">GDPR-formulär</span></div>
+          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Ta bort specifika URL:er ur Googles sökresultat med stöd av GDPR. Kräver direktlänk till sidan om dig.</p>
           <div class="company-actions">
-            <a href="https://reportcontent.google.com/forms/rtbf" target="_blank" class="btn btn-primary">Öppna Googles formulär →</a>
+            <a href="https://reportcontent.google.com/forms/rtbf" target="_blank" class="btn btn-primary">Öppna formuläret →</a>
             <button class="btn btn-success" onclick="markSent(this,'google-search')">Markera som skickad</button>
+          </div>
+        </div>
+        <div class="company-card status-active">
+          <div class="company-header"><div><div class="company-name">Google — ta bort personuppgifter</div></div><span class="badge badge-amber">Personuppgifter</span></div>
+          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Ta bort kontaktuppgifter, bilder och ID-nummer som visas direkt i Googles sökresultat.</p>
+          <div class="company-actions">
+            <a href="https://support.google.com/websearch/answer/9673730" target="_blank" class="btn btn-primary">Öppna formuläret →</a>
+            <button class="btn btn-success" onclick="markSent(this,'google-personal')">Markera som skickad</button>
           </div>
         </div>
         <div class="company-card status-active">
@@ -366,7 +376,7 @@ const COMPANIES = [
   { id:'hitta',      name:'Hitta.se',     method:'bankid', url:'https://www.hitta.se/kontakta-oss/ta-bort-kontaktsida', status:'active', section:'standard', repopulates:true, steps:['Gå till länken nedan','Logga in med BankID','Följ instruktionerna för att ta bort din kontaktsida','Bekräfta borttagningen'], verified:'2026-03-14' },
   { id:'eniro',      name:'Eniro',        method:'bankid', url:'https://personer-uppdatera.eniro.se/', status:'active', section:'standard', utgivningsbevis:true, steps:['Gå till länken nedan','Logga in med BankID','Följ instruktionerna för att ta bort dina uppgifter','Bekräfta raderingen'], verified:'2026-03-14' },
   { id:'birthday',   name:'Birthday.se',  method:'email',  contact:'info@birthday.se', status:'active', section:'standard', birthdayNote:true, verified:'2026-03-14' },
-  { id:'merinfo',    name:'Merinfo.se',   method:'email',  contact:'info@merinfo.se',  status:'active', section:'standard', verified:'2026-03-14' },
+  { id:'merinfo',    name:'Merinfo.se',   method:'email',  contact:'info@merinfo.se',  status:'active', section:'standard', birthdayNote:true, verified:'2026-03-14' },
   { id:'mrkoll',     name:'MrKoll',       method:'form',   url:'https://mrkoll.se/om/kundservice-kundkontakt/', status:'under_investigation', section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
   { id:'upplysning', name:'Upplysning.se',method:'form',   url:'https://www.upplysning.se/kontakta-oss', status:'under_investigation', section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
   { id:'krimfup',    name:'Krimfup.se',   method:'email',  contact:'support@krimfup.se', status:'under_investigation', section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
@@ -521,8 +531,6 @@ function buildCard(c) {
     : '<span class="badge badge-muted">E-post</span>';
 
   const extras = [];
-  if (c.utgivningsbevis) extras.push('<span class="badge badge-amber">Utgivningsbevis-risk</span>');
-  if (c.repopulates)     extras.push('<span class="badge badge-amber">Kan återkomma</span>');
   if (c.status==='under_investigation') extras.push('<span class="badge badge-red">Under tillsyn av IMY</span>');
 
   let body = '';
@@ -597,6 +605,7 @@ function renderTracker() {
     { id:'adresslaset',   name:'Adresslåset' },
     ...COMPANIES.map(c=>({ id:c.id, name:c.name })),
     { id:'google-search', name:'Google — avindexering' },
+    { id:'google-personal', name:'Google — ta bort personuppgifter' },
     { id:'google-cache',  name:'Google — föråldrat innehåll' },
   ];
   let done=0, waiting=0, overdue=0;
