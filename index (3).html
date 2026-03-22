@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radera.online — Ta kontroll över dina personuppgifter</title>
+  <meta name="description" content="Ett kostnadsfritt verktyg som hjälper dig radera dina personuppgifter från svenska databaser och sökmotorer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #F7F5F2;
+      --bg-card:   #FFFFFF;
+      --bg-muted:  #EFEDE9;
+      --blue:      #1B3F6E;
+      --blue-light:#E8EFF8;
+      --blue-mid:  #2E5FA3;
+      --text:      #1A1A18;
+      --text-2:    #5A5853;
+      --text-3:    #908D88;
+      --border:    #E0DDD8;
+      --border-2:  #C8C5BF;
+      --green:     #2D6A4F;
+      --green-bg:  #EAF4EE;
+      --amber:     #92600A;
+      --amber-bg:  #FDF3E3;
+      --red:       #9B2335;
+      --red-bg:    #FCEDEF;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Source Serif 4', Georgia, serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.65; }
+    h1, h2, h3, h4, .sans { font-family: 'Sora', system-ui, sans-serif; }
+    a { color: var(--blue-mid); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .app { display: flex; min-height: 100vh; flex-direction: column; }
+    .topbar { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-family: 'Sora', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--blue); letter-spacing: -0.02em; }
+    .logo span { color: var(--text-3); font-weight: 400; }
+    .disclaimer-bar { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); }
+    .main { display: flex; flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 2rem 1.5rem; gap: 2rem; }
+    .sidebar { width: 220px; flex-shrink: 0; }
+    .sidebar-inner { position: sticky; top: 76px; }
+    .step-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .step-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer; transition: background 0.15s; border: none; background: transparent; width: 100%; text-align: left; }
+    .step-item:hover { background: var(--bg-muted); }
+    .step-item.active { background: var(--blue-light); }
+    .step-num { font-family: 'Sora', sans-serif; font-size: 0.72rem; font-weight: 600; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; background: var(--bg-muted); color: var(--text-2); border: 1.5px solid var(--border); transition: all 0.2s; }
+    .step-item.active .step-num { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .step-item.done .step-num { background: var(--green); color: #fff; border-color: var(--green); }
+    .step-item.done .step-num::after { content: '✓'; font-size: 0.75rem; }
+    .step-item.done .step-num span { display: none; }
+    .step-label { font-family: 'Sora', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-2); line-height: 1.3; padding-top: 3px; }
+    .step-item.active .step-label { color: var(--blue); }
+    .step-item.done .step-label { color: var(--green); }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+    .sidebar-meta { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); padding: 0 12px; line-height: 1.6; }
+    .content { flex: 1; min-width: 0; }
+    .screen { display: none; animation: fadeIn 0.2s ease; }
+    .screen.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .screen-header { margin-bottom: 1.75rem; }
+    .screen-header h1 { font-size: 1.5rem; font-weight: 600; color: var(--text); letter-spacing: -0.02em; margin-bottom: 0.35rem; }
+    .screen-header p { font-size: 0.92rem; color: var(--text-2); }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
+    .card-title { font-family: 'Sora', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+    .badge { font-family: 'Sora', sans-serif; font-size: 0.68rem; font-weight: 500; padding: 2px 8px; border-radius: 99px; display: inline-flex; align-items: center; gap: 4px; letter-spacing: 0.01em; }
+    .badge-blue   { background: var(--blue-light); color: var(--blue);   border: 1px solid #C5D6EE; }
+    .badge-green  { background: var(--green-bg);   color: var(--green);  border: 1px solid #B8DEC9; }
+    .badge-amber  { background: var(--amber-bg);   color: var(--amber);  border: 1px solid #F0D5A0; }
+    .badge-red    { background: var(--red-bg);     color: var(--red);    border: 1px solid #EDB9C0; }
+    .badge-muted  { background: var(--bg-muted);   color: var(--text-2); border: 1px solid var(--border); }
+    .btn { font-family: 'Sora', sans-serif; font-size: 0.82rem; font-weight: 500; padding: 7px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-2); background: var(--bg-card); color: var(--text); cursor: pointer; transition: background 0.15s, border-color 0.15s, transform 0.1s; white-space: nowrap; text-decoration: none; display: inline-flex; align-items: center; }
+    .btn:hover { background: var(--bg-muted); text-decoration: none; }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .btn-primary:hover { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+    .btn-danger { background: var(--red-bg); color: var(--red); border-color: #EDB9C0; }
+    .btn-danger:hover { background: #F8D5DA; }
+    .btn-success { background: var(--green-bg); color: var(--green); border-color: #B8DEC9; }
+    .btn-success:hover { background: #D4ECDE; }
+    label { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--text-2); display: block; margin-bottom: 5px; }
+    input[type="text"], input[type="email"] { font-family: 'Source Serif 4', serif; font-size: 0.92rem; width: 100%; padding: 8px 12px; border: 1px solid var(--border-2); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text); transition: border-color 0.15s, box-shadow 0.15s; outline: none; }
+    input[type="text"]:focus, input[type="email"]:focus { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(46,95,163,0.12); }
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .input-group { display: flex; flex-direction: column; }
+    .field-note { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+    .company-card { background: var(--bg-card); border: 1px solid var(--border); border-left-width: 3px; border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 8px; box-shadow: var(--shadow); transition: box-shadow 0.2s; }
+    .company-card:hover { box-shadow: var(--shadow-md); }
+    .company-card.status-active  { border-left-color: var(--green); }
+    .company-card.status-warning { border-left-color: var(--amber); }
+    .company-card.status-blocked { border-left-color: var(--red); }
+    .company-card.status-done    { border-left-color: #B8DEC9; opacity: 0.7; }
+    .company-card.overdue { border-left-color: var(--red); animation: pulse-border 2s ease-in-out infinite; }
+    @keyframes pulse-border { 0%,100% { border-left-color: var(--red); } 50% { border-left-color: #E85B6E; } }
+    .company-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .company-name { font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .company-meta { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); margin-top: 2px; }
+    .badge-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
+    .company-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; align-items: center; }
+    .letter-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin: 10px 0; font-size: 0.88rem; line-height: 1.75; color: var(--text); }
+    .letter-to { font-family: 'Sora', sans-serif; font-size: 0.78rem; color: var(--text-3); margin-bottom: 4px; }
+    .letter-subject { font-family: 'Sora', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .letter-body { white-space: pre-wrap; font-size: 0.85rem; }
+    .steps-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .step-row { display: flex; gap: 12px; align-items: flex-start; }
+    .step-circle { font-family: 'Sora', sans-serif; font-size: 0.72rem; font-weight: 600; width: 22px; height: 22px; border-radius: 50%; background: var(--blue-light); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .step-text { font-size: 0.88rem; color: var(--text-2); padding-top: 2px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 1.5rem; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem; text-align: center; box-shadow: var(--shadow); }
+    .stat-num { font-family: 'Sora', sans-serif; font-size: 1.75rem; font-weight: 600; line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); }
+    .warning-box { background: var(--amber-bg); border: 1px solid #F0D5A0; border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 12px; }
+    .warning-box p { font-size: 0.85rem; color: var(--amber); line-height: 1.6; }
+    .warning-box strong { font-family: 'Sora', sans-serif; font-size: 0.82rem; display: block; margin-bottom: 4px; }
+    .section-label { font-family: 'Sora', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin: 1.5rem 0 0.75rem; }
+    .section-label:first-child { margin-top: 0; }
+    .proactive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .proactive-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .proactive-item:last-child { border-bottom: none; }
+    .proactive-name { font-family: 'Sora', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--text); }
+    .proactive-note { font-size: 0.78rem; color: var(--text-3); margin-top: 1px; }
+    footer { border-top: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 8px; }
+    .footer-disclaimer { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); max-width: 640px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    .footer-links a { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); }
+    .footer-links a:hover { color: var(--blue-mid); }
+    .deadline-bar-wrap { margin-top: 8px; display: flex; align-items: center; gap: 10px; }
+    .deadline-bar { flex: 1; height: 4px; background: var(--bg-muted); border-radius: 99px; overflow: hidden; }
+    .deadline-fill { height: 100%; border-radius: 99px; }
+    .deadline-label { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); white-space: nowrap; }
+    .prep-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+    .prep-list li { display: flex; gap: 8px; font-size: 0.88rem; color: var(--text-2); align-items: flex-start; }
+    .prep-list li::before { content: '—'; color: var(--text-3); flex-shrink: 0; }
+    .mobile-nav { display: none; background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 0.75rem 1rem; overflow-x: auto; gap: 4px; -webkit-overflow-scrolling: touch; }
+    .mobile-step { font-family: 'Sora', sans-serif; font-size: 0.75rem; font-weight: 500; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2); cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .mobile-step.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .contribute-link { font-family: 'Sora', sans-serif; font-size: 0.72rem; color: var(--text-3); margin-top: 8px; display: inline-block; }
+    .contribute-link:hover { color: var(--blue-mid); }
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .mobile-nav { display: flex; }
+      .main { padding: 1.25rem 1rem; }
+      .input-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(2,1fr); }
+      .proactive-grid { grid-template-columns: 1fr; }
+      .topbar .disclaimer-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="logo">radera<span>.online</span></div>
+    <div class="disclaimer-bar">Informationsverktyg — inte juridisk rådgivning</div>
+  </header>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="mobile-step active" onclick="goTo(1)" id="mob-1">1 · Skydda källan</button>
+    <button class="mobile-step" onclick="goTo(2)" id="mob-2">2 · Radera dig</button>
+    <button class="mobile-step" onclick="goTo(3)" id="mob-3">3 · Sökmotorer</button>
+    <button class="mobile-step" onclick="goTo(4)" id="mob-4">4 · Uppföljning</button>
+    <button class="mobile-step" onclick="goTo(5)" id="mob-5">5 · Förbli privat</button>
+  </nav>
+
+  <div class="main">
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <ul class="step-nav">
+          <li><button class="step-item active" onclick="goTo(1)" id="nav-1"><div class="step-num"><span>1</span></div><div class="step-label">Skydda källan</div></button></li>
+          <li><button class="step-item" onclick="goTo(2)" id="nav-2"><div class="step-num"><span>2</span></div><div class="step-label">Radera dig</div></button></li>
+          <li><button class="step-item" onclick="goTo(3)" id="nav-3"><div class="step-num"><span>3</span></div><div class="step-label">Sökmotorer</div></button></li>
+          <li><button class="step-item" onclick="goTo(4)" id="nav-4"><div class="step-num"><span>4</span></div><div class="step-label">Uppföljning</div></button></li>
+          <li><button class="step-item" onclick="goTo(5)" id="nav-5"><div class="step-num"><span>5</span></div><div class="step-label">Förbli privat</div></button></li>
+        </ul>
+        <hr class="sidebar-divider" />
+        <div class="sidebar-meta">Alla uppgifter stannar i din webbläsare.</div>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <!-- Screen 1 -->
+      <section class="screen active" id="screen-1">
+        <div class="screen-header">
+          <h1>Du har rätt att bli bortglömd.</h1>
+          <p style="margin-bottom:12px;">GDPR ger dig rätt att kräva radering av dina personuppgifter från svenska tjänster. De gör det medvetet krångligt. Radera.online guidar dig genom processen — gratis, anonymt och utan att samla in dina uppgifter.</p>
+          <p style="font-family:'Sora',sans-serif;font-size:0.78rem;color:var(--text-3);background:var(--bg-muted);border-radius:var(--radius-sm);padding:8px 12px;display:inline-block;">Helt gratis &nbsp;·&nbsp; Ingen registrering &nbsp;·&nbsp; Ingen insamling av uppgifter &nbsp;·&nbsp; Du gör jobbet själv</p>
+        </div>
+        <div class="section-label">Skydda källan först</div>
+        <p style="font-size:0.85rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Skydda din identitet vid källan innan du raderar dig från enskilda tjänster.</p>
+        <div class="company-card status-active">
+          <div class="company-header">
+            <div><div class="company-name">Spärra folkbokföring</div><div class="company-meta">Skatteverket — Gratis</div></div>
+            <div class="badge-row"><span class="badge badge-blue">BankID</span><span class="badge badge-green">Gratis</span></div>
+          </div>
+          <p style="font-size:0.88rem;color:var(--text-2);line-height:1.6;margin-bottom:12px;">Förhindrar att obehöriga ändrar din folkbokföringsadress. Utan spärr kan aggregatortjänster uppdateras med felaktig information via SPAR.</p>
+          <ol class="steps-list">
+            <li class="step-row"><span class="step-circle">1</span><span class="step-text">Gå till länken nedan och logga in med BankID</span></li>
+            <li class="step-row"><span class="step-circle">2</span><span class="step-text">Ansök om spärr mot obehörig adressändring</span></li>
+            <li class="step-row"><span class="step-circle">3</span><span class="step-text">Spärren aktiveras omgående</span></li>
+          </ol>
+          <div class="company-actions">
+            <a href="https://skatteverket.se/privat/folkbokforing/flyttanmalan/sparraobehorigadressandring.4.361dc8c15312eff6fd2ca7c.html" target="_blank" class="btn btn-primary">Gå till Skatteverket →</a>
+            <button class="btn btn-success" onclick="markDone(this,'folkbokforing')">Markera som klar</button>
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-3);margin-top:10px;">Påverkar inte din egen möjlighet att anmäla en faktisk flytt.</p>
+        </div>
+        <div class="company-card status-active">
+          <div class="company-header">
+            <div><div class="company-name">Adresslåset</div><div class="company-meta">Adressändring.se — Avgiftsbelagd</div></div>
+            <div class="badge-row"><span class="badge badge-blue">BankID</span><span class="badge badge-muted">Privat tjänst</span></div>
+          </div>
+          <p style="font-size:0.88rem;color:var(--text-2);line-height:1.6;margin-bottom:12px;">Förhindrar att obehöriga omdirigerar din post. Kompletterar folkbokföringsspärren — de skyddar mot olika typer av missbruk.</p>
+          <ol class="steps-list">
+            <li class="step-row"><span class="step-circle">1</span><span class="step-text">Gå till adressandring.se och välj "Adresslåset"</span></li>
+            <li class="step-row"><span class="step-circle">2</span><span class="step-text">Logga in med BankID och aktivera låset</span></li>
+          </ol>
+          <div class="company-actions">
+            <a href="https://www.adressandring.se/vara-tjanster/adresslaset" target="_blank" class="btn btn-primary">Gå till Adresslåset →</a>
+            <button class="btn btn-success" onclick="markDone(this,'adresslaset')">Markera som klar</button>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button class="btn btn-primary" onclick="goTo(2)">Nästa steg: Radera dig →</button>
+        </div>
+      </section>
+
+      <!-- Screen 2 -->
+      <section class="screen" id="screen-2">
+        <div class="screen-header">
+          <h1>Radera dig från aggregatorer</h1>
+          <p>Fyll i dina uppgifter — mallarna fylls i automatiskt. Alla uppgifter stannar i din webbläsare.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Dina uppgifter</div>
+          <div class="input-grid">
+            <div class="input-group"><label for="f-name">Fullständigt namn</label><input type="text" id="f-name" placeholder="Erik Andersson" oninput="saveUserData()" /></div>
+            <div class="input-group"><label for="f-pnr">Personnummer</label><input type="text" id="f-pnr" placeholder="YYYYMMDD-XXXX" oninput="saveUserData()" /></div>
+            <div class="input-group"><label for="f-email">E-postadress</label><input type="email" id="f-email" placeholder="erik@gmail.com" oninput="saveUserData()" /></div>
+            <div class="input-group"><label for="f-address">Adress</label><input type="text" id="f-address" placeholder="Storgatan 12, Stockholm" oninput="saveUserData()" /></div>
+          </div>
+          <div class="field-note">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#908D88"/><path d="M6 5v4M6 3.5v.5" stroke="#908D88" stroke-linecap="round"/></svg>
+            Alla uppgifter stannar i din webbläsare.
+          </div>
+        </div>
+        <div class="section-label">Via BankID-inloggning</div>
+        <div id="bankid-companies"></div>
+        <div class="section-label">Via e-post</div>
+        <div id="email-companies"></div>
+        <div class="section-label">Under tillsyn av IMY</div>
+        <p style="font-size:0.85rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Dessa tjänster publicerar uppgifter trots begäran om radering. IMY utövar tillsyn. Du kan fortfarande skicka en förfrågan, men följ IMY:s webbplats för uppdateringar om läget.</p>
+        <div id="legal-companies"></div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button class="btn btn-primary" onclick="goTo(3)">Nästa steg: Sökmotorer →</button>
+        </div>
+      </section>
+
+      <!-- Screen 3 -->
+      <section class="screen" id="screen-3">
+        <div class="screen-header">
+          <h1>Ta bort dig från sökmotorer</h1>
+          <p>Gör detta <strong>efter</strong> att källan bekräftat radering — annars kan Google neka din begäran.</p>
+        </div>
+        <div class="warning-box">
+          <strong>Viktigt — rätt ordning</strong>
+          <p>Skicka begäran till Google först efter att respektive företag bekräftat att dina uppgifter raderats. Om sidan fortfarande är aktiv kan begäran nekas.</p>
+        </div>
+        <div class="section-label">Google</div>
+        <div class="company-card status-active">
+          <div class="company-header"><div><div class="company-name">Google — avindexering (GDPR)</div></div><span class="badge badge-amber">GDPR-formulär</span></div>
+          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Ta bort specifika URL:er ur Googles sökresultat med stöd av GDPR. Kräver direktlänk till sidan om dig.</p>
+          <div class="company-actions">
+            <a href="https://reportcontent.google.com/forms/rtbf" target="_blank" class="btn btn-primary">Öppna formuläret →</a>
+            <button class="btn btn-success" onclick="markSent(this,'google-search')">Markera som skickad</button>
+          </div>
+        </div>
+        <div class="company-card status-active">
+          <div class="company-header"><div><div class="company-name">Google — ta bort personuppgifter</div></div><span class="badge badge-amber">Personuppgifter</span></div>
+          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Ta bort kontaktuppgifter, bilder och ID-nummer som visas direkt i Googles sökresultat.</p>
+          <div class="company-actions">
+            <a href="https://support.google.com/websearch/answer/9673730" target="_blank" class="btn btn-primary">Öppna formuläret →</a>
+            <button class="btn btn-success" onclick="markSent(this,'google-personal')">Markera som skickad</button>
+          </div>
+        </div>
+        <div class="company-card status-active">
+          <div class="company-header"><div><div class="company-name">Google — föråldrat innehåll</div></div><span class="badge badge-green">Snabb process</span></div>
+          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Sidor som redan raderats vid källan men fortfarande syns i Googles cache. Behandlas snabbt.</p>
+          <div class="company-actions">
+            <a href="https://search.google.com/search-console/remove-outdated-content" target="_blank" class="btn btn-primary">Öppna verktyget →</a>
+            <button class="btn btn-success" onclick="markSent(this,'google-cache')">Markera som skickad</button>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button class="btn btn-primary" onclick="goTo(4)">Nästa steg: Uppföljning →</button>
+        </div>
+      </section>
+
+      <!-- Screen 4 -->
+      <section class="screen" id="screen-4">
+        <div class="screen-header">
+          <h1>Uppföljning</h1>
+          <p>Håll koll på dina förfrågningar. Företag är skyldiga att svara inom 30 dagar (Artikel 12.3 GDPR).</p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-num" id="stat-done" style="color:var(--green);">0</div><div class="stat-label">Klara</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-waiting" style="color:var(--blue);">0</div><div class="stat-label">Inväntar svar</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-overdue" style="color:var(--red);">0</div><div class="stat-label">Försenade</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-total" style="color:var(--text-2);">0</div><div class="stat-label">Totalt</div></div>
+        </div>
+        <div id="tracker-list"></div>
+        <div class="card" style="margin-top:1rem;">
+          <div class="card-title">Anmäl till IMY</div>
+          <p style="font-size:0.88rem;color:var(--text-2);margin-bottom:12px;line-height:1.6;">Om ett företag inte svarat efter 30 dagar kan du anmäla till Integritetsskyddsmyndigheten. IMY hanterar klagomål via e-tjänst — inte via e-post.</p>
+          <p style="font-family:'Sora',sans-serif;font-size:0.8rem;font-weight:600;color:var(--text-2);margin-bottom:8px;">Förbered följande:</p>
+          <ul class="prep-list">
+            <li>Din ursprungliga raderingsförfrågan med datum</li>
+            <li>Bevis på att du skickat den (t.ex. skärmbild eller vidarebefordrat mejl)</li>
+            <li>Företagets namn och organisationsnummer</li>
+            <li>Kort beskrivning av vad som hänt</li>
+          </ul>
+          <a href="https://e-tjanster.imy.se/sv/klagomal" target="_blank" class="btn btn-primary" style="margin-top:10px;">Gå till IMY:s e-tjänst →</a>
+        </div>
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button class="btn btn-primary" onclick="goTo(5)">Nästa steg: Förbli privat →</button>
+        </div>
+      </section>
+
+      <!-- Screen 5 -->
+      <section class="screen" id="screen-5">
+        <div class="screen-header">
+          <h1>Förbli privat</h1>
+          <p>Nu när du rensat upp — minska ditt digitala fotavtryck framöver.</p>
+        </div>
+        <div class="proactive-grid">
+          <div class="card">
+            <div class="card-title">E-post</div>
+            <div class="proactive-item"><div><div class="proactive-name">Proton Mail</div><div class="proactive-note">Krypterad e-post, baserad i Schweiz</div></div><span class="badge badge-green">Rekommenderas</span></div>
+          </div>
+          <div class="card">
+            <div class="card-title">VPN</div>
+            <div class="proactive-item"><div><div class="proactive-name">Mullvad VPN</div><div class="proactive-note">Ingen loggning, baserad i Sverige</div></div><span class="badge badge-green">Rekommenderas</span></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Webbläsare</div>
+            <div class="proactive-item"><div><div class="proactive-name">Firefox</div><div class="proactive-note">Bästa standardinställningar för integritet</div></div><span class="badge badge-green">Rekommenderas</span></div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p class="footer-disclaimer">Radera.online är ett informationsverktyg — inte juridisk rådgivning. Vi ansvarar inte för utfallet av förfrågningar skickade via våra mallar. Kontakta en jurist om du behöver personlig rådgivning.</p>
+    <p class="footer-disclaimer" style="margin-top:6px;">Vill du föreslå förändringar eller bidra till databasen? Skicka ett mail till <a href="mailto:radera.online@proton.me" style="color:var(--text-3);">radera.online@proton.me</a></p>
+    <div class="footer-links">
+      <a href="#" onclick="goTo(1);return false;">Börja om</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const COMPANIES = [
+  { id:'ratsit',     name:'Ratsit',       method:'bankid', url:'https://www.ratsit.se/tabort', status:'active', section:'standard', repopulates:true, steps:['Gå till länken nedan','Logga in med BankID','Följ instruktionerna för att ta bort dina uppgifter','Bekräfta raderingen'], verified:'2026-03-14' },
+  { id:'hitta',      name:'Hitta.se',     method:'bankid', url:'https://www.hitta.se/kontakta-oss/ta-bort-kontaktsida', status:'active', section:'standard', repopulates:true, steps:['Gå till länken nedan','Logga in med BankID','Följ instruktionerna för att ta bort din kontaktsida','Bekräfta borttagningen'], verified:'2026-03-14' },
+  { id:'eniro',      name:'Eniro',        method:'bankid', url:'https://personer-uppdatera.eniro.se/', status:'active', section:'standard', utgivningsbevis:true, steps:['Gå till länken nedan','Logga in med BankID','Följ instruktionerna för att ta bort dina uppgifter','Bekräfta raderingen'], verified:'2026-03-14' },
+  { id:'birthday',   name:'Birthday.se',  method:'email',  contact:'info@birthday.se', status:'active', section:'standard', birthdayNote:true, verified:'2026-03-14' },
+  { id:'merinfo',    name:'Merinfo.se',   method:'email',  contact:'info@merinfo.se',  status:'active', section:'standard', birthdayNote:true, verified:'2026-03-14' },
+  { id:'mrkoll',     name:'MrKoll',       method:'form',   url:'https://mrkoll.se/om/kundservice-kundkontakt/', status:'under_investigation', section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
+  { id:'upplysning', name:'Upplysning.se',method:'form',   url:'https://www.upplysning.se/kontakta-oss', status:'under_investigation', section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
+  { id:'krimfup',    name:'Krimfup.se',   method:'email',  contact:'support@krimfup.se', status:'under_investigation', section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
+  { id:'lexbase',    name:'Lexbase.se',   method:'form',   url:'https://www.lexbase.se/sida/kontakt', status:'under_investigation', utgivningsbevis:true, section:'legal', statusNote:'Publicerar uppgifter trots begäran om radering enligt GDPR. Under tillsyn av IMY.', verified:'2026-03-14' },
+];
+
+const TPL_STANDARD = `Hej!
+
+Jag vill härmed utöva min rätt till radering enligt artikel 17 i dataskyddsförordningen (GDPR).
+
+Jag begär att alla personuppgifter som är kopplade till mig tas bort från er databas och webbplats. Detta innebär att ingen person ska kunna se information om mig, inklusive rättsliga dokument och andra uppgifter kopplade till mitt namn och personnummer, på er tjänst.
+
+Ni kan hitta information om era skyldigheter på Integritetsskyddsmyndighetens webbplats (www.imy.se). Kammarrättens senaste avgörande fastställer att databaser som publicerar uppgifter för kommersiella syften inte anses ha ett journalistiskt ändamål och därför är skyldiga att följa GDPR.
+
+Jag ser fram emot ert svar på min begäran om radering snarast möjligt. Ni får gärna kontakta mig om ni har några frågor.
+
+Med vänliga hälsningar,
+[NAMN]
+[PERSONNUMMER]`;
+
+const TPL_UTGIVNINGSBEVIS = TPL_STANDARD.replace(
+  'Jag ser fram emot',
+  'Jag noterar att ni tidigare hänvisat till utgivningsbevis som grund för publicering. IMY har dock klargjort att ett utgivningsbevis inte ger en obegränsad rätt att behandla personuppgifter när ett proportionerligt allmänintresse saknas.\n\nJag ser fram emot'
+);
+
+const TPL_LEGAL = TPL_STANDARD.replace(
+  'Ni kan hitta information',
+  'Fortsatt publicering av rättsliga uppgifter utgör en oproportionerlig kränkning av min personliga integritet. Enligt skäl 65 i GDPR ska rätten till radering väga tungt när fortsatt behandling orsakar sådan skada, oavsett om uppgifterna ursprungligen hämtats från offentliga källor.\n\nNi kan hitta information'
+);
+
+const TPL_FOLLOWUP = `Hej!
+
+Den [DATUM] skickade jag en begäran om radering av mina personuppgifter med stöd av artikel 17 GDPR. Enligt artikel 12.3 är ni skyldiga att besvara en sådan begäran inom en månad.
+
+Jag har ännu inte mottagit något svar. Vänligen bekräfta att raderingen har genomförts, eller meddela skriftligen varför ni anser att ni inte är skyldiga att radera uppgifterna (artikel 12.4).
+
+Om jag inte erhåller svar inom 7 dagar kommer jag att inge klagomål till Integritetsskyddsmyndigheten (IMY) via deras e-tjänst på e-tjanster.imy.se/sv/klagomal.
+
+Med vänliga hälsningar,
+[NAMN]
+[PERSONNUMMER]`;
+
+let userData = {}, trackerData = {};
+
+function init() {
+  userData    = JSON.parse(localStorage.getItem('radera_user')    || '{}');
+  trackerData = JSON.parse(localStorage.getItem('radera_tracker') || '{}');
+  loadFields();
+  renderCompanies();
+  renderTracker();
+}
+
+function saveUserData() {
+  userData = { name: f('f-name'), pnr: f('f-pnr'), email: f('f-email'), address: f('f-address') };
+  localStorage.setItem('radera_user', JSON.stringify(userData));
+  document.querySelectorAll('.letter-body').forEach(el => {
+    const id = el.id.replace('body-','');
+    const c = COMPANIES.find(x => x.id === id);
+    if (c) el.textContent = fillTpl(chooseTpl(c));
+  });
+}
+
+function loadFields() {
+  if (userData.name)    sv('f-name',    userData.name);
+  if (userData.pnr)     sv('f-pnr',     userData.pnr);
+  if (userData.email)   sv('f-email',   userData.email);
+  if (userData.address) sv('f-address', userData.address);
+}
+
+function f(id)     { const el = document.getElementById(id); return el ? el.value : ''; }
+function sv(id, v) { const el = document.getElementById(id); if (el) el.value = v; }
+
+function fillTpl(tpl) {
+  return tpl
+    .replace(/\[NAMN\]/g,         userData.name || '[DITT NAMN]')
+    .replace(/\[PERSONNUMMER\]/g, userData.pnr  || '[DITT PERSONNUMMER]');
+}
+
+function chooseTpl(c) {
+  if (c.section === 'legal')    return TPL_LEGAL;
+  if (c.utgivningsbevis)        return TPL_UTGIVNINGSBEVIS;
+  return TPL_STANDARD;
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function goTo(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-'+n).classList.add('active');
+  for (let i=1;i<=5;i++) {
+    const nav = document.getElementById('nav-'+i);
+    const mob = document.getElementById('mob-'+i);
+    if (nav) { nav.classList.toggle('active', i===n); }
+    if (mob) { mob.classList.toggle('active', i===n); }
+  }
+  if (n===4) renderTracker();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function markDone(btn, id) {
+  trackerData[id] = { status:'done', doneDate: today() };
+  localStorage.setItem('radera_tracker', JSON.stringify(trackerData));
+  btn.textContent = '✓ Klar';
+  btn.className = 'btn';
+  btn.disabled = true;
+}
+
+function markSent(btn, id) {
+  trackerData[id] = { status:'sent', sentDate: today(), deadlineDate: daysFromNow(30) };
+  localStorage.setItem('radera_tracker', JSON.stringify(trackerData));
+  btn.textContent = '✓ Skickad';
+  btn.className = 'btn';
+  btn.disabled = true;
+  const nameMap = {'google-search':'Google — avindexering','google-personal':'Google — ta bort personuppgifter','google-cache':'Google — föråldrat innehåll'};
+  const name = COMPANIES.find(c=>c.id===id)?.name || nameMap[id] || id;
+  const deadlineDate = daysFromNow(30);
+  offerCalendar(name, deadlineDate, id);
+}
+
+function offerCalendar(name, deadlineDate, id) {
+  const existing = document.getElementById('cal-offer-'+id);
+  if (existing) existing.remove();
+  const card = document.querySelector(`[data-id="${id}"]`) || document.getElementById('cal-anchor-'+id);
+  const wrap = document.createElement('div');
+  wrap.id = 'cal-offer-'+id;
+  wrap.style.cssText = 'margin-top:8px;padding:8px 12px;background:var(--blue-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;';
+  wrap.innerHTML = `<span style="font-family:'Sora',sans-serif;font-size:0.78rem;color:var(--blue-mid);">Påminnelse om 30 dagar (${deadlineDate})?</span>
+    <button class="btn" style="font-size:0.75rem;padding:5px 10px;" onclick="downloadICS('${name}','${deadlineDate}','${id}')">Lägg till i kalender</button>`;
+  if (card) card.after(wrap);
+}
+
+function downloadICS(name, deadlineDate, id) {
+  const dt = deadlineDate.replace(/-/g,'');
+  const uid = 'radera-'+id+'-'+dt+'@radera.online';
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//radera.online//SV',
+    'BEGIN:VEVENT',
+    'UID:'+uid,
+    'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',
+    'DTSTART;VALUE=DATE:'+dt,
+    'SUMMARY:Följ upp raderingsbegäran — '+name,
+    'DESCRIPTION:Du skickade en raderingsbegäran till '+name+'. Företaget är skyldigt att svara inom 30 dagar (Artikel 12.3 GDPR). Om inget svar — anmäl till IMY via https://e-tjanster.imy.se/sv/klagomal',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'påminnelse-'+name.toLowerCase().replace(/\s/g,'-')+'.ics';
+  a.click();
+  const offer = document.getElementById('cal-offer-'+id);
+  if (offer) { offer.innerHTML = '<span style="font-family:\'Sora\',sans-serif;font-size:0.78rem;color:var(--green);">✓ Påminnelse nedladdad</span>'; }
+}
+
+function today() { return new Date().toISOString().split('T')[0]; }
+
+function daysFromNow(d) {
+  const dt = new Date();
+  dt.setDate(dt.getDate()+d);
+  return dt.toISOString().split('T')[0];
+}
+
+function daysUntil(s) {
+  const now = new Date(); now.setHours(0,0,0,0);
+  return Math.round((new Date(s)-now)/86400000);
+}
+
+function renderCompanies() {
+  const bankidEl = document.getElementById('bankid-companies');
+  const emailEl  = document.getElementById('email-companies');
+  const legalEl  = document.getElementById('legal-companies');
+  COMPANIES.forEach(c => {
+    const el = buildCard(c);
+    if (c.section==='legal')      legalEl.appendChild(el);
+    else if (c.method==='bankid') bankidEl.appendChild(el);
+    else                          emailEl.appendChild(el);
+  });
+}
+
+function buildCard(c) {
+  const div = document.createElement('div');
+  const statusClass = c.status==='under_investigation' ? 'status-blocked' : 'status-active';
+  div.className = 'company-card '+statusClass;
+  div.setAttribute('data-id', c.id);
+
+  const methodBadge = c.method==='bankid'
+    ? '<span class="badge badge-blue">BankID</span>'
+    : c.method==='form'
+    ? '<span class="badge badge-muted">Webbformulär</span>'
+    : '<span class="badge badge-muted">E-post</span>';
+
+  const extras = [];
+  if (c.status==='under_investigation') extras.push('<span class="badge badge-red">Under tillsyn av IMY</span>');
+
+  let body = '';
+
+  if (c.status==='under_investigation') {
+    body = `<div class="warning-box" style="margin-bottom:0;"><p><strong>⚠ ${c.statusNote}</strong><br/>Följ <a href="https://www.imy.se" target="_blank">IMY:s webbplats</a> för uppdateringar.</p></div>`;
+  } else if (c.method==='bankid') {
+    const stepsHtml = c.steps.map((s,i)=>`<li class="step-row"><span class="step-circle">${i+1}</span><span class="step-text">${s}</span></li>`).join('');
+    body = `<ol class="steps-list" style="margin-bottom:12px;">${stepsHtml}</ol>
+      <div class="company-actions">
+        <a href="${c.url}" target="_blank" class="btn btn-primary">Gå till ${c.name} →</a>
+        <button class="btn btn-success" onclick="markSent(this,'${c.id}')">Markera som klar</button>
+      </div>`;
+  } else {
+    const tpl = fillTpl(chooseTpl(c));
+    const contactLine = c.contact
+      ? `<div class="letter-to">Till: <strong>${c.contact}</strong></div>`
+      : c.url
+      ? `<div class="letter-to">Formulär: <a href="${c.url}" target="_blank">${c.url}</a></div>`
+      : '';
+    const mailtoBody = encodeURIComponent(fillTpl(chooseTpl(c)));
+    const mailtoBtn = c.contact
+      ? `<a href="mailto:${c.contact}?subject=Beg%C3%A4ran%20om%20radering%20av%20personuppgifter%20%E2%80%93%20Artikel%2017%20GDPR&body=${mailtoBody}" class="btn btn-primary">Öppna i mejl →</a>`
+      : c.url
+      ? `<a href="${c.url}" target="_blank" class="btn btn-primary">Gå till formulär →</a>`
+      : '';
+    body = `
+      <div class="letter-card">
+        ${contactLine}
+        <div class="letter-subject">Begäran om radering av personuppgifter – Artikel 17 GDPR</div>
+        <div class="letter-body" id="body-${c.id}">${esc(tpl)}</div>
+      </div>
+      ${c.birthdayNote ? `<div class="warning-box" style="margin-bottom:10px;"><p>Birthday.se kan svara med en länk för BankID-verifiering. Klicka på länken och verifiera din identitet för att slutföra raderingen.</p></div>` : ''}
+      <div class="company-actions">
+        <button class="btn" onclick="copyTpl('${c.id}',this)">Kopiera mall</button>
+        ${mailtoBtn}
+        <button class="btn btn-success" onclick="markSent(this,'${c.id}')">Markera som skickad</button>
+      </div>`;
+  }
+
+  const ghUrl = `mailto:radera.online@proton.me?subject=Förslag: ${encodeURIComponent(c.name)}`;
+
+  div.innerHTML = `
+    <div class="company-header">
+      <div>
+        <div class="company-name">${c.name}</div>
+        <div class="company-meta">Senast verifierad: ${c.verified}</div>
+      </div>
+      <div class="badge-row">${methodBadge}${extras.join('')}</div>
+    </div>
+    ${body}
+    <a href="${ghUrl}" class="contribute-link">Stämmer något inte? Maila till: radera.online@proton.me</a>`;
+
+  return div;
+}
+
+function copyTpl(id, btn) {
+  const el = document.getElementById('body-'+id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Kopierat';
+    setTimeout(()=>{ btn.textContent = orig; }, 2000);
+  });
+}
+
+function renderTracker() {
+  const list = document.getElementById('tracker-list');
+  list.innerHTML = '';
+  const all = [
+    { id:'folkbokforing', name:'Skatteverket — Folkbokföringsspärr' },
+    { id:'adresslaset',   name:'Adresslåset' },
+    ...COMPANIES.map(c=>({ id:c.id, name:c.name })),
+    { id:'google-search', name:'Google — avindexering' },
+    { id:'google-personal', name:'Google — ta bort personuppgifter' },
+    { id:'google-cache',  name:'Google — föråldrat innehåll' },
+  ];
+  let done=0, waiting=0, overdue=0;
+  all.forEach(item => {
+    const t = trackerData[item.id];
+    if (!t) return;
+    const card = document.createElement('div');
+    let statusClass='status-active', badge='', actions='', extra='';
+    if (t.status==='done') {
+      done++;
+      statusClass='status-done';
+      badge='<span class="badge badge-green">✓ Klar</span>';
+    } else if (t.status==='sent') {
+      const dl = daysUntil(t.deadlineDate);
+      if (dl<0) {
+        overdue++;
+        statusClass='status-blocked';
+        card.classList.add('overdue');
+        badge='<span class="badge badge-red">Försenad</span>';
+        actions=`<button class="btn" onclick="showFollowup('${item.id}','${item.name}','${t.sentDate}')">Visa påminnelsemall</button>
+          <a href="https://e-tjanster.imy.se/sv/klagomal" target="_blank" class="btn btn-danger">Anmäl till IMY →</a>
+          <button class="btn btn-success" onclick="markItemDone('${item.id}')">Markera som löst</button>`;
+      } else {
+        waiting++;
+        statusClass='status-warning';
+        badge='<span class="badge badge-amber">Inväntar svar</span>';
+        const pct = Math.round(Math.min(100, ((30-dl)/30)*100));
+        const col = dl<7?'var(--red)':dl<14?'var(--amber)':'var(--green)';
+        extra=`<div class="deadline-bar-wrap"><div class="deadline-bar"><div class="deadline-fill" style="width:${pct}%;background:${col};"></div></div><div class="deadline-label">${dl} dagar kvar</div></div>`;
+        actions=`<button class="btn btn-success" onclick="markItemDone('${item.id}')">Markera som klar</button>`;
+      }
+    }
+    card.className='company-card '+statusClass;
+    card.innerHTML=`
+      <div class="company-header">
+        <div>
+          <div class="company-name">${item.name}</div>
+          <div class="company-meta">${t.sentDate?'Skickad: '+t.sentDate:''}${t.deadlineDate?' · Deadline: '+t.deadlineDate:''}${t.doneDate?'Klar: '+t.doneDate:''}</div>
+        </div>
+        ${badge}
+      </div>
+      ${extra}
+      ${actions?`<div class="company-actions" style="margin-top:10px;">${actions}</div>`:''}`;
+    list.appendChild(card);
+  });
+  document.getElementById('stat-done').textContent    = done;
+  document.getElementById('stat-waiting').textContent = waiting;
+  document.getElementById('stat-overdue').textContent = overdue;
+  document.getElementById('stat-total').textContent   = done+waiting+overdue;
+  if (!list.children.length) {
+    list.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--text-3);font-family:'Sora',sans-serif;font-size:0.88rem;">Inga förfrågningar skickade ännu. Markera förfrågningar som skickade i steg 1–3 för att följa upp dem här.</div>`;
+  }
+}
+
+function markItemDone(id) {
+  trackerData[id] = { status:'done', doneDate: today() };
+  localStorage.setItem('radera_tracker', JSON.stringify(trackerData));
+  renderTracker();
+}
+
+function showFollowup(id, name, sentDate) {
+  const tpl = fillTpl(TPL_FOLLOWUP).replace('[DATUM]', sentDate||'[DATUM]');
+  const modal = document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;display:flex;align-items:center;justify-content:center;padding:1rem;';
+  modal.innerHTML=`
+    <div style="background:var(--bg-card);border-radius:var(--radius-lg);padding:1.5rem;max-width:560px;width:100%;box-shadow:var(--shadow-md);max-height:85vh;overflow-y:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+        <h3 style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:600;">Påminnelsemall — ${name}</h3>
+        <button onclick="this.closest('div[style*=fixed]').remove()" style="background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-3);line-height:1;">✕</button>
+      </div>
+      <div class="letter-card" style="margin:0 0 1rem;">
+        <div class="letter-subject">PÅMINNELSE – Obesvarad begäran om radering (Artikel 17 GDPR)</div>
+        <div class="letter-body" id="fu-body-${id}">${esc(tpl)}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-primary" onclick="copyFu('${id}',this)">Kopiera mall</button>
+        <button class="btn" onclick="this.closest('div[style*=fixed]').remove()">Stäng</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+}
+
+function copyFu(id, btn) {
+  const el = document.getElementById('fu-body-'+id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    btn.textContent='✓ Kopierat';
+    setTimeout(()=>{ btn.textContent='Kopiera mall'; },2000);
+  });
+}
+
+init();
+</script>
+</body>
+</html>
